@@ -1,0 +1,35 @@
+{% extends 'scheduler/base.html' %}
+
+{% block content %}
+    <h1>Daftar Jadwal</h1>
+    <a href="{% url 'schedule_create' %}" class="btn btn-primary mb-3">Tambah Jadwal</a>
+    {% if schedules %}
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Judul</th>
+                    <th>Tanggal</th>
+                    <th>Waktu</th>
+                    <th>Kategori</th>
+                    <th>Aksi</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for schedule in schedules %}
+                    <tr>
+                        <td>{{ schedule.title }}</td>
+                        <td>{{ schedule.date }}</td>
+                        <td>{{ schedule.time }}</td>
+                        <td>{{ schedule.category|default:"Tidak ada" }}</td>
+                        <td>
+                            <a href="{% url 'schedule_edit' schedule.pk %}" class="btn btn-warning btn-sm">Edit</a>
+                            <a href="{% url 'schedule_delete' schedule.pk %}" class="btn btn-danger btn-sm">Hapus</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>Belum ada jadwal.</p>
+    {% endif %}
+{% endblock %}

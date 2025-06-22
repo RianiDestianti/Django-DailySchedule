@@ -1,0 +1,11 @@
+{% extends 'scheduler/base.html' %}
+
+{% block content %}
+    <h1>{% if form.instance.pk %}Edit{% else %}Tambah{% endif %} Jadwal</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">Simpan</button>
+        <a href="{% url 'schedule_list' %}" class="btn btn-secondary">Kembali</a>
+    </form>
+{% endblock %}
