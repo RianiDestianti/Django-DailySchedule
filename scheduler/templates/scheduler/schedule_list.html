@@ -1,35 +1,45 @@
 {% extends 'scheduler/base.html' %}
 
+{% block title %}Daftar Jadwal{% endblock %}
+
 {% block content %}
-    <h1>Daftar Jadwal</h1>
-    <a href="{% url 'schedule_create' %}" class="btn btn-primary mb-3">Tambah Jadwal</a>
+<div class="row">
+    <div class="col-12 mb-4">
+        <a href="{% url 'schedule_create' %}" class="btn btn-primary">
+            <i class="bi bi-plus-circle me-2"></i>Tambah Jadwal
+        </a>
+    </div>
     {% if schedules %}
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th>Judul</th>
-                    <th>Tanggal</th>
-                    <th>Waktu</th>
-                    <th>Kategori</th>
-                    <th>Aksi</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for schedule in schedules %}
-                    <tr>
-                        <td>{{ schedule.title }}</td>
-                        <td>{{ schedule.date }}</td>
-                        <td>{{ schedule.time }}</td>
-                        <td>{{ schedule.category|default:"Tidak ada" }}</td>
-                        <td>
-                            <a href="{% url 'schedule_edit' schedule.pk %}" class="btn btn-warning btn-sm">Edit</a>
-                            <a href="{% url 'schedule_delete' schedule.pk %}" class="btn btn-danger btn-sm">Hapus</a>
-                        </td>
-                    </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+        {% for schedule in schedules %}
+            <div class="col-md-6 col-lg-4 mb-4">
+                <div class="card h-100 shadow-sm border-0">
+                    <div class="card-header bg-primary text-white">
+                        <h5 class="card-title mb-0">
+                            <i class="bi bi-clock me-2"></i>{{ schedule.title }}
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text"><strong>Tanggal:</strong> {{ schedule.date|date:"d M Y" }}</p>
+                        <p class="card-text"><strong>Waktu:</strong> {{ schedule.time|time:"H:i" }}</p>
+                        <p class="card-text"><strong>Kategori:</strong> {{ schedule.category|default:"Tidak ada" }}</p>
+                    </div>
+                    <div class="card-footer bg-white border-top-0">
+                        <a href="{% url 'schedule_edit' schedule.pk %}" class="btn btn-outline-warning btn-sm">
+                            <i class="bi bi-pencil me-1"></i>Edit
+                        </a>
+                        <a href="{% url 'schedule_delete' schedule.pk %}" class="btn btn-outline-danger btn-sm">
+                            <i class="bi bi-trash me-1"></i>Hapus
+                        </a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
     {% else %}
-        <p>Belum ada jadwal.</p>
+        <div class="col-12">
+            <div class="alert alert-info text-center">
+                <i class="bi bi-info-circle me-2"></i>Belum ada jadwal. Tambahkan jadwal baru sekarang!
+            </div>
+        </div>
     {% endif %}
+</div>
 {% endblock %}

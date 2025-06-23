@@ -1,11 +1,31 @@
 {% extends 'scheduler/base.html' %}
 
+{% block title %}Hapus Jadwal{% endblock %}
+
 {% block content %}
-    <h1>Hapus Jadwal</h1>
-    <p>Apakah Anda yakin ingin menghapus "{{ schedule.title }}"?</p>
-    <form method="post">
-        {% csrf_token %}
-        <button type="submit" class="btn btn-danger">Hapus</button>
-        <a href="{% url 'schedule_list' %}" class="btn btn-secondary">Batal</a>
-    </form>
+<div class="row justify-content-center">
+    <div class="col-md-8 col-lg-6">
+        <div class="card shadow-sm border-0">
+            <div class="card-header bg-danger text-white">
+                <h5 class="card-title mb-0">
+                    <i class="bi bi-trash me-2"></i>Hapus Jadwal
+                </h5>
+            </div>
+            <div class="card-body">
+                <p class="mb-4">Apakah Anda yakin ingin menghapus <strong>"{{ schedule.title }}"</strong>? Tindakan ini tidak dapat dibatalkan.</p>
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="d-flex justify-content-end">
+                        <button type="submit" class="btn btn-danger me-2">
+                            <i class="bi bi-trash me-1"></i>Hapus
+                        </button>
+                        <a href="{% url 'schedule_list' %}" class="btn btn-secondary">
+                            <i class="bi bi-arrow-left me-1"></i>Batal
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}
